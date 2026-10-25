@@ -1,0 +1,230 @@
+/* Page d'atterrissage. Couleurs et polices viennent de charte.css (variables). Aucune ressource externe. */
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+body {
+  margin: 0; background: var(--fond); color: var(--noir);
+  font-family: var(--police-texte); font-weight: var(--poids-texte); font-synthesis: none; font-size: 1.0625rem; line-height: 1.6;
+  overflow-x: hidden;
+}
+h1, h2, h3, strong, .carte-famille, .carte-titre, .filtre, .bouton, dt { font-family: var(--police-titre); font-weight: var(--poids-titre); }
+h1, h2, h3, p, ul, ol, dl, dd, address { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--bleu); }
+:focus-visible { outline: 0.2rem solid var(--bleu); outline-offset: 0.2rem; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.saut { position: absolute; left: -999px; top: 0; background: var(--fond); padding: 0.6rem 1rem; z-index: 100; }
+.saut:focus { left: 0.5rem; top: 0.5rem; }
+
+/* ---- en-tête fixe ---- */
+.entete {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: 4rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 0 clamp(1rem, 4vw, 3rem);
+  background: rgba(255, 255, 255, 0.96); border-bottom: 0.1rem solid var(--filet);
+}
+.entete-logo img { height: 2.4rem; width: auto; }
+.entete nav ul { display: flex; gap: clamp(0.6rem, 2vw, 1.6rem); flex-wrap: nowrap; }
+.entete nav a { color: var(--noir); text-decoration: none; font-family: var(--police-titre); font-weight: var(--poids-titre); font-size: 0.95rem; padding: 0.3rem 0; border-bottom: 0.18rem solid transparent; }
+.entete nav a:hover, .entete nav a:focus-visible { border-bottom-color: var(--arche); }
+@media (max-width: 40rem) {
+  .entete { height: auto; min-height: 4rem; flex-wrap: wrap; padding-block: 0.4rem; }
+  .entete nav { width: 100%; overflow-x: auto; }
+  .entete nav ul { gap: 1rem; padding-bottom: 0.3rem; }
+  .entete nav a { font-size: 0.85rem; white-space: nowrap; }
+  html { scroll-padding-top: 6.5rem; }
+}
+
+/* ---- bandeau d'accroche ---- */
+.accroche { position: relative; min-height: min(100vh, 50rem); min-height: min(100svh, 50rem); display: flex; align-items: flex-end; color: var(--fond); overflow: hidden; }
+/* Le blason est dans la photo (40,7 à 56,5 % de la largeur, 40,5 à 75 % de la hauteur). Au-dessus de 56rem la photo est
+   agrandie à 150 % et calée à gauche : le blason passe à 61-85 % de la largeur, à droite du texte (qui s'arrête à 59 %).
+   Au-dessous de 56rem le texte passe sous la photo entière : le blason reste dégagé. */
+.accroche-fond { position: absolute; top: 0; left: 0; width: 150%; max-width: none; height: 100%; object-fit: cover; object-position: 50% 60%; }
+.accroche::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.15) 70%); }
+.accroche-texte, .accroche-texte * { text-shadow: none; }
+.accroche p { font-weight: var(--poids-texte-plein); }
+.accroche-texte { position: relative; z-index: 2; max-width: min(46rem, 59%); padding: 6rem clamp(1rem, 5vw, 4rem) clamp(2.5rem, 8vh, 5rem); }
+.accroche h1 { font-size: clamp(2rem, 6vw, 3.6rem); line-height: 1.1; margin-bottom: 1rem; }
+.accroche p { font-size: clamp(1.05rem, 2.2vw, 1.3rem); margin-bottom: 1.8rem; }
+@media (max-width: 56rem) {
+  .accroche { display: block; min-height: 0; background: var(--bleu); }
+  .accroche::before { display: none; }
+  .accroche-fond { position: relative; width: 100%; max-width: 100%; height: auto; aspect-ratio: 4 / 3; object-position: 48% 50%; }
+  .accroche-texte { max-width: none; padding: 2rem clamp(1rem, 5vw, 4rem) 3rem; }
+}
+.bouton { display: inline-block; background: var(--jaune); color: var(--noir); text-decoration: none; padding: 0.85rem 1.6rem; border-radius: 2rem 0.4rem 2rem 0.4rem; }
+.bouton:hover { background: var(--fond); }
+.bouton-clair { background: var(--fond); color: var(--bleu); }
+.bouton-clair:hover { background: var(--jaune); color: var(--noir); }
+
+/* ---- blocs ---- */
+.bloc { padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 4rem); max-width: 80rem; margin: 0 auto; }
+.bloc-gris { max-width: none; background: #F6F3EF; }
+.bloc-gris > * { max-width: 72rem; margin-left: auto; margin-right: auto; }
+.bloc h2 { font-size: clamp(1.7rem, 4vw, 2.5rem); line-height: 1.15; color: var(--bleu); margin-bottom: 1.2rem; }
+.bloc h2::after { content: ""; display: block; width: 4.5rem; height: 0.3rem; background: var(--jaune); margin-top: 0.7rem; }
+.bloc h3 { font-size: 1.2rem; color: var(--bleu); margin: 1.4rem 0 0.4rem; }
+.intro { max-width: 40rem; margin-bottom: 1.8rem; }
+
+/* ---- approche ---- */
+.cartes-approche { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.4rem; }
+.cartes-approche li { position: relative; padding: 4rem 1.4rem 1.4rem; border-top: 0.25rem solid var(--bleu); background: var(--fond); border-radius: 0 0 0.6rem 0.6rem; box-shadow: 0 0.1rem 0.9rem rgba(0, 0, 0, 0.07); }
+.cartes-approche .num { position: absolute; left: 1.4rem; top: 1rem; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--jaune); display: flex; align-items: center; justify-content: center; font-family: var(--police-titre); font-weight: var(--poids-titre); }
+.cartes-approche h3 { margin-top: 0; }
+
+/* ---- filtres ---- */
+.filtres { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.8rem; }
+.filtre { border: 0.12rem solid var(--bleu); background: var(--fond); color: var(--bleu); padding: 0.5rem 1.2rem; border-radius: 2rem; font-size: 0.95rem; cursor: pointer; }
+.filtre:hover { background: #EAF2FA; }
+.filtre[aria-pressed="true"] { background: var(--bleu); color: var(--fond); }
+
+/* ---- grille de cartes ---- */
+.grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1.4rem; }
+.carte-item[hidden] { display: none; }
+/* flex en colonne, contenu calé en haut : un bouton centre son contenu à la verticale, ce qui laissait une bande blanche au-dessus du visuel quand la carte est étirée par la grille */
+.carte { width: 100%; text-align: left; font: inherit; padding: 0; border: 0.1rem solid var(--filet); background: var(--fond); cursor: pointer; border-radius: 0.5rem; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-start; color: inherit; }
+.carte:hover { box-shadow: 0 0.2rem 1.2rem rgba(0, 0, 0, 0.14); }
+/* aucun aplat de couleur derrière un produit détouré ni derrière une photo : le visuel est posé sur le fond blanc de la carte ; seule la carte « Visuel en préparation » est pleine */
+.carte-visuel { position: relative; display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3.4; padding: 1.2rem; overflow: hidden; background: var(--fond); }
+.carte-visuel > img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; filter: drop-shadow(0 0.3rem 0.5rem rgba(0, 0, 0, 0.2)); }
+.carte-visuel > img.photo { width: 100%; height: 100%; max-height: none; object-fit: cover; filter: none; border-radius: 1rem; }
+/* photo et carte « Visuel en préparation » : pleine largeur, collées au haut de la carte (le haut arrondi est celui de la carte, qui rogne) ; le produit détouré garde sa marge */
+.carte-visuel.vis-photo, .carte-visuel.vis-vide { padding: 0; }
+.carte-visuel.vis-photo > img.photo, .carte-visuel.vis-vide > .vide-web { border-radius: 0; }
+.vide-web { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; background: var(--arche); border-radius: 1rem; }
+.carte-visuel > .vide-web { width: 100%; height: 100%; }
+.carte.famille-personnel .vide-web { background: var(--sable); }
+.carte.famille-public .vide-web { background: var(--bleu); }
+.vide-web img { height: 5.5rem; width: auto; opacity: 0.1; }
+.vide-web em { font-style: normal; font-size: 0.8rem; opacity: 0.6; }
+.carte.famille-public .vide-web img { filter: invert(1); }
+.carte.famille-public .vide-web em { color: var(--fond); }
+.voile { position: absolute; inset: 0; padding: 1rem; display: flex; flex-direction: column; justify-content: flex-end; gap: 0.5rem; background: rgba(0, 94, 184, 0.93); color: var(--fond); font-size: 0.9rem; line-height: 1.4; font-weight: var(--poids-texte-plein); opacity: 0; transition: opacity 0.2s; }
+.carte:hover .voile, .carte:focus-visible .voile { opacity: 1; }
+@media (hover: none) { .voile { display: none; } }
+.voile-origine { font-family: var(--police-titre); font-weight: var(--poids-titre); font-size: 0.8rem; }
+.carte-texte { display: block; padding: 0.9rem 1rem 1.1rem; }
+.carte-famille { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--taupe); }
+.carte-titre { display: block; font-size: 1.1rem; color: var(--noir); }
+
+/* description rendue sur 2 lignes ou moins : à gauche (classe posée par js/landing.js d'après la hauteur rendue) */
+.court { text-align: left; }
+
+/* ---- concepts d'exception ---- */
+.cartes-vip { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.4rem; }
+.vip-vis { aspect-ratio: 4 / 3; border-radius: 1rem; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.vip-vis > img { width: 100%; height: 100%; object-fit: cover; }
+.vip-vis > .vide-web { width: 100%; height: 100%; }
+.cartes-vip h3 { margin-top: 0.9rem; }
+
+/* ---- présentation ---- */
+.presentation { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(1.5rem, 5vw, 4rem); align-items: center; }
+.presentation-vis { padding: 2rem; display: flex; justify-content: center; }
+.presentation-vis img { max-height: 26rem; width: auto; filter: drop-shadow(0 0.4rem 0.6rem rgba(0, 0, 0, 0.2)); }
+.presentation-vis.vis-photo { padding: 0; }
+.presentation-vis.vis-photo img { border-radius: 1rem; filter: none; }
+.cadre-mot { border: 0.1rem dashed var(--cadre-texte); border-radius: 0.5rem; padding: 1.4rem; text-align: center; color: var(--cadre-texte); }
+blockquote { margin: 0; padding: 0.6rem 1rem; border-left: 0.3rem solid var(--jaune); }
+@media (max-width: 48rem) { .presentation { grid-template-columns: 1fr; } }
+
+/* ---- suite ---- */
+.suite-grille { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(1.5rem, 5vw, 3rem); }
+.suite-grille > ul { display: grid; gap: 0.9rem; }
+.suite-grille > ul li { padding-left: 1.2rem; position: relative; }
+.suite-grille > ul li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--bleu); }
+.suite-etapes { border-left: 0.3rem solid var(--bleu); padding-left: 1.4rem; }
+.suite-etapes h3 { margin-top: 0; }
+.suite-etapes ol { list-style: decimal; padding-left: 1.2rem; display: grid; gap: 0.5rem; }
+@media (max-width: 48rem) { .suite-grille { grid-template-columns: 1fr; } }
+
+/* ---- pied ---- */
+.pied { background: var(--bleu); color: var(--fond); text-align: center; padding: clamp(3rem, 8vw, 5rem) 1rem; display: flex; flex-direction: column; align-items: center; gap: 1.6rem; }
+.pied-blason { height: 4.5rem; width: auto; }
+.pied-phrase { font-family: var(--police-titre); font-weight: var(--poids-titre); font-size: clamp(1.5rem, 4vw, 2.4rem); line-height: 1.2; max-width: 40rem; }
+.pied address { font-style: normal; }
+.pied a { color: var(--fond); }
+.pied .bouton-clair { color: var(--bleu); }
+
+/* ---- panneau de détail ---- */
+dialog { border: 0; padding: 0; width: min(54rem, calc(100vw - 1.5rem)); max-height: calc(100vh - 1.5rem); max-height: calc(100svh - 1.5rem); border-radius: 0.8rem; color: var(--noir); background: var(--fond); overflow: auto; }
+dialog::backdrop { background: rgba(0, 0, 0, 0.6); }
+.fermer { position: absolute; right: 0.6rem; top: 0.6rem; z-index: 2; width: 2.6rem; height: 2.6rem; border-radius: 50%; border: 0; background: var(--fond); font-size: 1.6rem; line-height: 1; cursor: pointer; color: var(--noir); }
+.detail-grille { display: grid; grid-template-columns: 1fr 1fr; min-height: 22rem; }
+/* panneau de détail : produit détouré sur le fond blanc ; photo à arrondi régulier ; sans visuel, carte pleine à la couleur de la famille */
+.detail-vis { padding: 2rem; display: flex; align-items: center; justify-content: center; }
+.detail-vis.vis-vide { background: var(--arche); border-radius: 1rem; margin: 2rem 0 2rem 1.2rem; padding: 0; }
+.detail-vis.vis-vide.famille-personnel { background: var(--sable); }
+.detail-vis.vis-vide.famille-public { background: var(--bleu); }
+.detail-vis img { max-height: 22rem; width: auto; filter: drop-shadow(0 0.3rem 0.5rem rgba(0, 0, 0, 0.2)); }
+.detail-vis img.photo { width: 100%; height: 100%; max-height: 24rem; object-fit: cover; border-radius: 1rem; filter: none; }
+.detail-texte { padding: 2.2rem 1.8rem 1.8rem; }
+.detail-texte h2 { font-size: 1.7rem; color: var(--bleu); margin: 0.3rem 0 0.8rem; }
+.detail-texte dl { margin-top: 1.2rem; display: grid; gap: 0.2rem; }
+.detail-texte dt { font-size: 0.85rem; color: var(--taupe); margin-top: 0.6rem; }
+.detail-texte dd { margin: 0; }
+#detail-nuancier { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+#detail-nuancier span { width: 1.6rem; height: 1.6rem; border-radius: 50%; border: 0.1rem solid rgba(0, 0, 0, 0.3); }
+@media (max-width: 40rem) { .detail-grille { grid-template-columns: 1fr; } .detail-vis { min-height: 14rem; } .detail-vis img { max-height: 14rem; } }
+
+/* ---- sélection : bouton sous chaque carte, indicateur fixe, panneau de demande d'offre ---- */
+.carte-item { display: flex; flex-direction: column; }
+.carte-item .carte { border-bottom: 0; border-radius: 0.5rem 0.5rem 0 0; flex: 1; }
+.sel { display: flex; flex-direction: column; gap: 0.6rem; padding: 0.7rem 1rem 1rem; background: var(--fond); }
+.carte-item .sel { border: 0.1rem solid var(--filet); border-top: 0; border-radius: 0 0 0.5rem 0.5rem; }
+.sel-btn { font-family: var(--police-titre); font-weight: var(--poids-titre); font-size: 0.9rem; cursor: pointer; border: 0.12rem solid var(--bleu); background: var(--fond); color: var(--bleu); padding: 0.55rem 1rem; border-radius: 2rem; width: 100%; }
+.sel-btn:hover { background: var(--sable); }
+.sel-btn[aria-pressed="true"] { background: var(--bleu); color: var(--fond); }
+.sel-qte { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.85rem; color: var(--taupe); }
+.sel-qte[hidden] { display: none; }
+.sel-qte span { font-family: var(--police-titre); font-weight: var(--poids-titre); }
+.sel-qte select, #sel-remarque, #sel-texte { font: inherit; font-size: 0.95rem; color: var(--noir); background: var(--fond); border: 0.1rem solid var(--taupe); border-radius: 0.4rem; padding: 0.45rem 0.6rem; width: 100%; }
+.sel-note { font-size: 0.85rem; color: var(--taupe); }
+.cartes-vip li { display: flex; flex-direction: column; }
+.cartes-vip .sel { padding: 0.8rem 0 0; margin-top: auto; }
+
+.sel-indicateur { position: fixed; right: clamp(0.75rem, 2vw, 1.5rem); bottom: clamp(0.75rem, 2vw, 1.5rem); z-index: 40; font-family: var(--police-titre); font-weight: var(--poids-titre); font-size: 1rem; cursor: pointer; border: 0.12rem solid var(--noir); background: var(--jaune); color: var(--noir); padding: 0.7rem 1.3rem; border-radius: 2rem 0.4rem 2rem 0.4rem; box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.25); }
+.sel-indicateur[hidden] { display: none; }
+.sel-indicateur:hover { background: var(--fond); }
+
+.dialogue-sel { width: min(36rem, calc(100vw - 1.5rem)); }
+.sel-corps { padding: 2rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.9rem; }
+.sel-corps h2 { font-size: 1.6rem; color: var(--bleu); padding-right: 2.5rem; }
+.sel-liste { display: grid; gap: 0.6rem; }
+.sel-liste li { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; padding: 0.7rem 0.9rem; background: var(--fond); border: 0.1rem solid var(--filet); border-left: 0.3rem solid var(--bleu); border-radius: 0 0.4rem 0.4rem 0; }
+.sel-ligne { display: flex; flex-direction: column; min-width: 0; }
+.sel-ligne strong { overflow-wrap: anywhere; }
+.sel-famille { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--taupe); }
+.sel-quantite { font-size: 0.9rem; }
+.sel-retirer { font-family: var(--police-titre); font-weight: var(--poids-titre); font-size: 0.85rem; cursor: pointer; border: 0.12rem solid var(--taupe); background: var(--fond); color: var(--noir); padding: 0.4rem 0.8rem; border-radius: 2rem; white-space: nowrap; }
+.sel-retirer:hover { background: var(--sable); }
+.sel-remarque-label { font-family: var(--police-titre); font-weight: var(--poids-titre); font-size: 0.9rem; color: var(--bleu); }
+#sel-remarque, #sel-texte { resize: vertical; }
+.sel-envoi { display: flex; flex-direction: column; gap: 0.7rem; }
+.sel-envoi .bouton { text-align: center; border: 0; font-size: 1rem; cursor: pointer; }
+.sel-envoi [hidden] { display: none; }
+#sel-copie { display: flex; flex-direction: column; gap: 0.7rem; }
+#sel-copie[hidden] { display: none; }
+.sel-phrase { font-size: 0.9rem; color: var(--taupe); }
+@media (max-width: 40rem) { .sel-liste li { flex-wrap: wrap; } }
+
+/* ---- chapitres (présidence, personnel, public) : mêmes trois chapitres que le PDF ---- */
+.chapitre-web { scroll-margin-top: 5rem; margin-top: 2.6rem; }
+.chapitre-web:first-child { margin-top: 0; }
+.bloc .chapitre-web-titre { font-size: 1.5rem; margin: 0 0 0.3rem; }
+.chapitre-web-nb { font-family: var(--police-texte); font-weight: 400; font-size: 0.9rem; color: var(--taupe); margin-left: 0.5rem; }
+.chapitre-web-intro { margin: 0 0 1.2rem; color: var(--taupe); }
+.chapitre-web[hidden] { display: none; }
+
+/* ---- écran tactile ou étroit : cibles d'au moins 44 x 44 px (WCAG 2.5.5), en-tête qui reste lisible ---- */
+@media (pointer: coarse), (max-width: 40rem) {
+  .entete-logo { display: flex; align-items: center; min-height: 2.75rem; }
+  .entete nav a { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.3rem; }
+  .filtre, .sel-btn, .sel-retirer, .sel-qte select, .sel-indicateur, .sel-envoi .bouton, .bouton { min-height: 2.75rem; }
+  .fermer { width: 2.75rem; height: 2.75rem; }
+  .pied address a { display: inline-block; min-height: 2.75rem; line-height: 2.75rem; }
+  html { scroll-padding-top: 8rem; }
+}

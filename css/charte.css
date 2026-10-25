@@ -1,0 +1,38 @@
+/* Charte du client. Généré par export-v2.mjs depuis client.json (typographie : agence) : ne pas modifier à la main. */
+
+@font-face {
+  font-family: "Syne";
+  src: url("../assets/polices/Syne-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../assets/polices/Poppins-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../assets/polices/Poppins-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  --bleu: #005EB8;
+  --jaune: #FFCD00;
+  --taupe: #7A6855;
+  --sable: #F3CFB3;
+  --noir: #000000;
+  --arche: #FFCD00;
+  --fond: #FFFFFF;
+  --filet: #C8C8C8;
+  --cadre: #E4E4E4;
+  --cadre-texte: #6B6B6B;
+  --police-titre: "Syne";
+  --police-texte: "Poppins";
+  --poids-titre: 600;
+  --poids-texte: 300;
+  --poids-texte-plein: 400;
+}
