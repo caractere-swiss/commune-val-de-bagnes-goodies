@@ -50,6 +50,12 @@
       img.alt = a.nom;
       if (!a.detoure) img.className = "photo";
       vis.appendChild(img);
+      if (a.intention) {
+        var tag = document.createElement("span");
+        tag.className = "etiquette-intention";
+        tag.textContent = a.intention;
+        vis.appendChild(tag);
+      }
     }
     var nuancier = document.getElementById("detail-nuancier");
     nuancier.textContent = "";

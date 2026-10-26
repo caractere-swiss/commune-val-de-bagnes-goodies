@@ -70,12 +70,6 @@ a { color: var(--bleu); }
 .bloc h3 { font-size: 1.2rem; color: var(--bleu); margin: 1.4rem 0 0.4rem; }
 .intro { max-width: 40rem; margin-bottom: 1.8rem; }
 
-/* ---- approche ---- */
-.cartes-approche { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.4rem; }
-.cartes-approche li { position: relative; padding: 4rem 1.4rem 1.4rem; border-top: 0.25rem solid var(--bleu); background: var(--fond); border-radius: 0 0 0.6rem 0.6rem; box-shadow: 0 0.1rem 0.9rem rgba(0, 0, 0, 0.07); }
-.cartes-approche .num { position: absolute; left: 1.4rem; top: 1rem; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--jaune); display: flex; align-items: center; justify-content: center; font-family: var(--police-titre); font-weight: var(--poids-titre); }
-.cartes-approche h3 { margin-top: 0; }
-
 /* ---- filtres ---- */
 .filtres { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.8rem; }
 .filtre { border: 0.12rem solid var(--bleu); background: var(--fond); color: var(--bleu); padding: 0.5rem 1.2rem; border-radius: 2rem; font-size: 0.95rem; cursor: pointer; }
@@ -118,6 +112,7 @@ a { color: var(--bleu); }
 .cartes-vip { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.4rem; }
 .vip-vis { aspect-ratio: 4 / 3; border-radius: 1rem; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .vip-vis > img { width: 100%; height: 100%; object-fit: cover; }
+.vip-vis.vip-detoure > img { object-fit: contain; filter: drop-shadow(0 0.4rem 0.6rem rgba(0, 0, 0, 0.18)); padding: 0.4rem; }
 .vip-vis > .vide-web { width: 100%; height: 100%; }
 .cartes-vip h3 { margin-top: 0.9rem; }
 
@@ -228,3 +223,7 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.6); }
   .pied address a { display: inline-block; min-height: 2.75rem; line-height: 2.75rem; }
   html { scroll-padding-top: 8rem; }
 }
+
+/* étiquette « visuel d'intention » (rendu IA) : discrète, sur le visuel concerné seulement */
+.etiquette-intention { position: absolute; left: 0.6rem; bottom: 0.6rem; z-index: 2; padding: 0.15rem 0.6rem; border-radius: 1rem; background: rgba(255, 255, 255, 0.88); color: var(--noir); font-size: 0.72rem; line-height: 1.3; }
+.vip-vis, .detail-vis { position: relative; }
